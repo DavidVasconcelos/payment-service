@@ -1,11 +1,13 @@
 package br.com.fiap.paymentservice.repository;
 
+import br.com.fiap.paymentservice.exception.TransactionNotFoundException;
 import br.com.fiap.paymentservice.model.Transaction;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class TransactionRepository {
@@ -16,7 +18,9 @@ public class TransactionRepository {
 
     public Transaction getById(Long id) {
 
-        final Transaction savedTransaction = transactions.stream().filter(transaction -> transaction.getId() == id).findFirst().get();
+        final Optional<Transaction> optionalTransaction = transactions.stream().filter(order -> order.getId() == id).findFirst();
+
+        final Transaction savedTransaction = optionalTransaction.orElseThrow(() -> new TransactionNotFoundException("Transação não encontrada"));
 
         return savedTransaction;
     }
@@ -44,7 +48,6 @@ public class TransactionRepository {
 
         transactions.add(savedTransaction);
     }
-
 
 
 }
