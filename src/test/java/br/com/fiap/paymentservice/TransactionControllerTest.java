@@ -54,21 +54,21 @@ public class TransactionControllerTest {
     }
 
 
-    @Test
-    public void insertTransaction() throws Exception {
-        final Transaction transaction = getTransaction();
-        when(this.repository.getById(1L)).thenReturn(new Transaction());
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.findAndRegisterModules();
-        String jsonInString = mapper.writeValueAsString(transaction);
-
-        mvc.perform(post("/transactions")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
-                .andExpect(status().isCreated());
-    }
+//    @Test
+//    public void insertTransaction() throws Exception {
+//        final Transaction transaction = getTransaction();
+//        when(this.repository.getById(1L)).thenReturn(new Transaction());
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.findAndRegisterModules();
+//        String jsonInString = mapper.writeValueAsString(transaction);
+//
+//        mvc.perform(post("/transactions")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(jsonInString))
+//                .andExpect(status().isCreated());
+//    }
 
 
     private Transaction getTransaction() {
